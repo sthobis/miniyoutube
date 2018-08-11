@@ -202,8 +202,8 @@ $(document).ready(function() {
                 var videoPaused = $video.get(0).paused;
                 
                 // 4. Store the current width and height to restore later
-                originalWidth = $video.width();
-                originalHeight = $video.height();
+                // originalWidth = $video.width();
+                // originalHeight = $video.height();
                 
                 // 5. Wrap the video into the small element div
                 $videoContainer.addClass('mnyt-video');
@@ -627,8 +627,8 @@ $(document).ready(function() {
         $(MINI_YOUTUBE_ID).appendTo('#ytd-player');
 
         // 4. Restore the width and heigh of the video
-        $video.css('width', originalWidth);
-        $video.css('height', originalHeight);
+        // $video.css('width', originalWidth);
+        // $video.css('height', originalHeight);
 
         // Remove the resizers
         $videoContainer.next().remove();
@@ -644,6 +644,11 @@ $(document).ready(function() {
 
         // 7. Set flag to false
         floated = false;
+
+        // 8. Force youtube resize listener to update video size
+        setTimeout(function() {
+            window.dispatchEvent(new Event('resize'));
+        }, 0);
     }
 
     function closeButtonClicked() {
