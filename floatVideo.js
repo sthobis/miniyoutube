@@ -40,6 +40,7 @@ $(document).ready(function() {
     var MINI_SCREEN_LAST_HEIGHT = 'miniScreenLastHeight';
     var MINI_SCREEN_LAST_WIDTH = 'miniScreenLastWidth';
     var MINI_YOUTUBE_ID = '#miniyoutube';
+    var VIDEO_CONTAINER_CLASS = '#movie_player'
     var VIDEO_STREAM_CLASS = '.video-stream';
 
     // Preload images
@@ -192,20 +193,21 @@ $(document).ready(function() {
                 $miniScreen.width(miniScreenWidth);
 
                 // 2. Grab the video element
+                $videoContainer = $(VIDEO_CONTAINER_CLASS);
                 $video = $(VIDEO_STREAM_CLASS);
-                $video.addClass('mnyt-video');
                 // Bind the time update event to the video
                 $video.bind('timeupdate', updateTime);
-
+                
                 // 3. Store the status of the video
                 var videoPaused = $video.get(0).paused;
-
+                
                 // 4. Store the current width and height to restore later
                 originalWidth = $video.width();
                 originalHeight = $video.height();
-
+                
                 // 5. Wrap the video into the small element div
-                $video.wrap($miniScreen);
+                $videoContainer.addClass('mnyt-video');
+                $videoContainer.wrap($miniScreen);
 
                 // Move the div to the top level body.
                 // *This is needed in Chrome after the update on 9 October 2016.
@@ -277,8 +279,8 @@ $(document).ready(function() {
                 }
 
                 // 8. Set the width and height of the video to fit the div
-                $video.css('width', miniScreenWidth);
-                $video.css('height', miniScreenHeight);
+                // $video.css('width', miniScreenWidth);
+                // $video.css('height', miniScreenHeight);
 
                 // 9. Activate the draggable feature of the small screen
                 $(MINI_YOUTUBE_ID).drags();
@@ -314,7 +316,7 @@ $(document).ready(function() {
                 $('.mnyt-progress-area').hover(handleProgressHoverIn, handleProgressHoverOut);
                 $('.mnyt-progress-area').click(handleVideoProgress);
 
-            } else if (floated == true && $(document).scrollTop() <= $('.html5-video-container').offset().top + originalHeight) {
+            } else if (floated == true && $(document).scrollTop() <= $('#ytd-player').get(0).clientHeight + $("#masthead-container").get(0).clientHeight) {
                 putBackMiniScreen();
             }
         }
@@ -602,7 +604,7 @@ $(document).ready(function() {
         $video.next().remove();
 
         // 3. Take away the parent.
-        $video.removeClass('mnyt-video');
+        $videoContainer.removeClass('mnyt-video');
         $video.unwrap();
 
         // 4. Set flag to false
@@ -611,7 +613,8 @@ $(document).ready(function() {
 
     function putBackMiniScreen() {
         // Put back the screen when the user scrolls up to the original player
-        // 1. Grab the video element
+        // 1. Grab the video and its container element
+        $videoContainer = $(VIDEO_CONTAINER_CLASS);
         $video = $(VIDEO_STREAM_CLASS);
 
         // 2. Store the status of the video
@@ -620,20 +623,19 @@ $(document).ready(function() {
         // 3. Save the current top and left of the mini screen.
         saveMiniYouTubeSettings();
 
-        // Move the div back to 'html5-video-container'.
-        // This is needed in Chrome after the update on 9 October 2016.
-        $(MINI_YOUTUBE_ID).appendTo('.html5-video-container');
+        // Move the div back to its original position.
+        $(MINI_YOUTUBE_ID).appendTo('#ytd-player');
 
         // 4. Restore the width and heigh of the video
         $video.css('width', originalWidth);
         $video.css('height', originalHeight);
 
         // Remove the resizers
-        $video.next().remove();
+        $videoContainer.next().remove();
 
         // 5. Take away the parent.
-        $video.removeClass('mnyt-video');
-        $video.unwrap();
+        $videoContainer.removeClass('mnyt-video');
+        $videoContainer.unwrap();
 
         // 6. Make the video status consistent
         if (!videoPaused) {

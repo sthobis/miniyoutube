@@ -9,6 +9,25 @@
   box-shadow: 0 0 10px #000000;
 }
 
+#miniyoutube #movie_player > * {
+  display: none;
+}
+
+#miniyoutube #movie_player > .caption-window {
+  display: block;
+}
+
+#miniyoutube #movie_player > .html5-video-container {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#miniyoutube #movie_player > .html5-video-container .video-stream {
+  width: 100% !important;
+  height: 100% !important;
+} 
+
 #mnyt-close-button {
   position: absolute;
   top: 3px;
@@ -202,6 +221,8 @@
 }
 
 .mnyt-video {
+  position: absolute !important;
+  z-index: -1;
   top: 0px !important;
   left: 0px !important;
 }

@@ -1,5 +1,5 @@
 SET DES=build\chrome
-rmdir /s "%DES%"
+rmdir /s /q "%DES%"
 mkdir "%DES%"
 
 copy "..\manifest_chrome.json" "%DES%\manifest.json"
