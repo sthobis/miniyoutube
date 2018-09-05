@@ -624,7 +624,7 @@ $(document).ready(function() {
         saveMiniYouTubeSettings();
 
         // Move the div back to its original position.
-        $(MINI_YOUTUBE_ID).appendTo('#ytd-player');
+        $(MINI_YOUTUBE_ID).appendTo('#ytd-player > #container.ytd-player');
 
         // 4. Restore the width and heigh of the video
         // $video.css('width', originalWidth);
