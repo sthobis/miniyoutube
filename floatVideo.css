@@ -9,7 +9,7 @@
   box-shadow: 0 0 10px #000000;
 }
 
-#miniyoutube #movie_player > * {
+#miniyoutube #movie_player > *:not(.ytp-caption-window-container) {
   display: none;
 }
 
