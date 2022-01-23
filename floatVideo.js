@@ -188,7 +188,9 @@ $(document).ready(function () {
       } else if (
         floated == false &&
         $(document).scrollTop() >
-          $(".html5-video-container").offset().top + $(".video-stream").height()
+          $(".html5-video-container").offset().top +
+            $(".video-stream").height() &&
+        window.location.pathname === "/watch"
       ) {
         // 1. Create the mini screen div to hold the video
         $miniScreen = $('<div id="miniyoutube"></div');
