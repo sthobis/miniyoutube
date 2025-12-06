@@ -61,7 +61,7 @@ function updateIcon() {
     if (!miniYouTubeActivated)
         iconPath = "images/icon128_grey.png";
 
-    browser.browserAction.setIcon({
+    browser.action.setIcon({
         path : {
           "19": iconPath,
           "38": iconPath
